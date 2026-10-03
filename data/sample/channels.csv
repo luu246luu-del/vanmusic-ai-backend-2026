@@ -1,0 +1,17 @@
+# Danh sách kênh dùng để thu thập dữ liệu.
+# Dòng bắt đầu bằng # sẽ bị bỏ qua.
+# Các kênh news-large dùng để huấn luyện mô hình dự báo video thời sự.
+channel_id,channel_name,scale_note
+UCabsTV34JwALXKGMqHpvUiA,VTV24,news-large
+UCIg56SgvoZF8Qg0Jx_gh6Pg,ANTV - Truyền hình Công an Nhân dân,news-large
+UC68VHcQS5x-WNFmf5cAFtgg,VTC NEWS,news-large
+UCIW9cGgoRuGJnky3K3tbzNg,Báo Thanh Niên,news-large
+UC47WI-kZXFf0H_f7pvaNCEQ,Báo Tuổi Trẻ,news-large
+UCOEvEldWBMOHNdlzcofFa9w,Báo VietNamNet,news-large
+UCHZ_b_qC_k_ORdCkiPCpFsw,Báo Dân Trí,news-medium
+UCr8i-5AIxdiJbI0HdGdUzIA,Báo Lao Động,news-large
+UCzkyOx_0O1pGOqHiUMOe2KQ,Báo Người Lao Động,news-large
+UCp6PchFsCg582xw6gEjpzVA,Báo Pháp Luật TP.HCM,news-large
+UCbs8GhLTzmPUZKVLFGbna1A,THVL 24News,news-medium
+UCZYKmEA2iQOSbyKc6xj5Vfw,HTV Tin Tức,news-large
+UC7_mgS3z22z0WhR7COJ8E2w,HTV - Đài Hà Nội,news-large

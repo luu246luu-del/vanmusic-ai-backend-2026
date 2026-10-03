@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo AI Dự Báo - kiểm tra API</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="vanmusic-predictor.css">
+<style>body{margin:0;background:#0b0612;font-family:system-ui,sans-serif}</style>
+</head>
+<body>
+<!-- Trang độc lập: mở bằng Live Server (http://127.0.0.1:5500) khi API chạy ở http://127.0.0.1:8000 -->
+<main id="main-content">
+<!-- Section được sao chép từ vanmusic-section.html (cần page-section hiển thị sẵn ở trang demo) -->
+<div id="vm-demo-mount"></div>
+</main>
+<script src="vanmusic-config.example.js"></script>
+<script src="vanmusic-api-client.js"></script>
+<script src="vanmusic-predictor.js"></script>
+<script>
+fetch("vanmusic-section.html").then(r => r.text()).then(html => {
+    document.getElementById("vm-demo-mount").innerHTML = html;
+    var s = document.getElementById("tab-predictor");
+    s.classList.add("active"); s.style.display = "block";
+    window.initializeVanMusicPredictor();
+}).catch(() => {
+    document.getElementById("vm-demo-mount").textContent = "Không tải được vanmusic-section.html. Hãy mở trang này bằng Live Server.";
+});
+</script>
+</body>
+</html>

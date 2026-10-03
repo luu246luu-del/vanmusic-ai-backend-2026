@@ -1,0 +1,82 @@
+{
+  "model_name": "LinearRegression",
+  "model_version": "v20261001-134413",
+  "trained_at": "2026-10-01T13:44:13+00:00",
+  "target": "views_gained_next_1_hour",
+  "target_transform": "log1p (dự đoán) / expm1 (đổi về lượt xem)",
+  "feature_names": [
+    "channel_age_days",
+    "subscriber_count",
+    "channel_video_count",
+    "channel_total_views",
+    "avg_previous_views",
+    "median_previous_views",
+    "duration_seconds",
+    "title_length",
+    "title_word_count",
+    "tag_count",
+    "description_length",
+    "publish_hour",
+    "publish_day_of_week",
+    "category_id",
+    "is_hd",
+    "has_caption",
+    "current_view_count",
+    "current_video_age_hours",
+    "recent_views_per_hour"
+  ],
+  "feature_count": 19,
+  "is_synthetic": false,
+  "data_period": {
+    "train_start": "2026-09-30 01:45:30+00:00",
+    "train_end": "2026-10-01 05:10:24+00:00",
+    "test_start": "2026-10-01 06:14:02+00:00",
+    "test_end": "2026-10-01 13:00:37+00:00",
+    "n_train": 128,
+    "n_test": 35,
+    "n_channels": 10
+  },
+  "library_versions": {
+    "python": "3.12.10",
+    "scikit_learn": "1.9.1",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "joblib": "1.6.0"
+  },
+  "metrics": {
+    "mae": 278.6084666480083,
+    "rmse": 547.2123823655688,
+    "r2": 0.12128350701646895,
+    "median_absolute_error": 58.9825246293542,
+    "n": 35,
+    "r2_log_space": 0.6700396657181567
+  },
+  "baseline_metrics": {
+    "avg_previous_views": {
+      "mae": 2092.0542857142855,
+      "rmse": 3255.139418607355,
+      "r2": -30.09396707171048,
+      "median_absolute_error": 1464.5,
+      "n": 35
+    },
+    "median_previous_views": {
+      "mae": 1527.3,
+      "rmse": 2292.25412920495,
+      "r2": -14.419222424223076,
+      "median_absolute_error": 1059.5,
+      "n": 35
+    },
+    "train_median_target": {
+      "mae": 374.9428571428571,
+      "rmse": 684.6541358337695,
+      "r2": -0.37555961759013945,
+      "median_absolute_error": 83.0,
+      "n": 35
+    }
+  },
+  "baseline_comparison": {
+    "best_baseline": "train_median_target",
+    "beats_best_baseline_mae_and_rmse": true,
+    "mae_improvement_pct": 25.693085935530817
+  }
+}

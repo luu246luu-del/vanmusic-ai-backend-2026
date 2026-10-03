@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+logs/*.log
+data/raw/*.csv
+data/snapshots/*.csv
+data/processed/*.csv
+data/processed/*.json
+models/demo/
+models/reports/*
+!models/reports/.gitkeep
+data/synthetic_demo/*.csv
+*.bak-*
+index-with-predictor.html

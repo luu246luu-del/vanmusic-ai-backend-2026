@@ -1,0 +1,45 @@
+# ======================= YOUTUBE VIEW PREDICTOR - CẤU HÌNH =======================
+# Biến môi trường (.env) luôn được ưu tiên hơn file này cho: API_HOST, API_PORT,
+# VANMUSIC_ALLOWED_ORIGINS, YOUTUBE_API_KEY, VANMUSIC_INTEGRATION_KEY, REQUIRE_INTEGRATION_KEY.
+
+region_code: "VN"
+category_id: "10"                 # 10 = Music
+max_videos_per_channel: 200       # số video tối đa lấy về cho mỗi kênh khi chạy collector
+previous_video_count: 10          # PREVIOUS_VIDEO_COUNT: số video trước đó dùng tính avg/median
+previous_video_min_gap_hours: 0   # >0: chỉ tính video trước cách video đang xét ít nhất N giờ
+
+target_age_hours: 1               # TARGET_AGE_HOURS
+target_tolerance_hours: 0.5         # TARGET_TOLERANCE_HOURS
+max_channel_stats_age_hours: 24   # chỉ nhận thống kê kênh từ snapshot đầu tiên nếu tuổi video <= giá trị này
+tracker_recent_videos: 15         # tracker xem N video mới nhất mỗi kênh
+
+include_shorts: false             # Shorts = video <= shorts_max_seconds
+shorts_max_seconds: 60
+include_live_streams: false
+feature_timezone: "Asia/Ho_Chi_Minh"   # múi giờ để tính publish_hour / publish_day_of_week
+
+train_ratio: 0.8                  # chia THEO THỜI GIAN: 80% video cũ -> Train, 20% video mới -> Test
+random_state: 42
+minimum_training_rows: 175        # ít hơn số này => DỪNG huấn luyện
+minimum_test_rows_for_interval: 20
+interval_quantiles: [0.1, 0.9]    # khoảng tham khảo 80% từ residual của tập Test
+
+channels_csv: "data/sample/channels.csv"
+model_path: "models/trained/model.joblib"
+raw_data_path: "data/raw"
+snapshot_path: "data/snapshots"
+processed_data_path: "data/processed"
+reports_path: "models/reports"
+log_path: "logs"
+
+request_timeout_seconds: 30
+max_retries: 3
+
+api:
+  host: "127.0.0.1"
+  port: 8000
+  cors_origins:
+    - "http://localhost:3000"
+    - "http://localhost:5173"
+    - "http://127.0.0.1:5500"
+    - "https://vanmusic.web.app"

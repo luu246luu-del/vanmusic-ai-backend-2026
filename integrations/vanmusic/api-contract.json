@@ -1,0 +1,93 @@
+{
+  "version": "v1",
+  "endpoint": "POST /api/v1/vanmusic/predict",
+  "header_optional": "X-VanMusic-Key",
+  "request": {
+    "example": {
+      "channel_id": "UCabsTV34JwALXKGMqHpvUiA",
+      "title": "Bản tin thời sự mới nhất",
+      "description": "Thông tin thời sự trong nước và quốc tế",
+      "duration_seconds": 260,
+      "tags": [
+        "tin tức",
+        "thời sự"
+      ],
+      "publish_datetime": "2026-09-30T10:00:00+07:00",
+      "category_id": "25",
+      "is_hd": true,
+      "has_caption": false,
+      "current_view_count": 15000,
+      "current_video_age_hours": 4.0,
+      "recent_views_per_hour": 2500.0,
+      "user_id": null,
+      "client_request_id": null
+    }
+  },
+  "response_success": {
+    "note": "Các số 0 chỉ mô tả cấu trúc JSON, không phải kết quả dự báo thật.",
+    "example": {
+      "success": true,
+      "data": {
+        "predicted_views_after_1_hour": 0,
+        "lower_estimate": null,
+        "upper_estimate": null,
+        "estimate_method": null,
+        "channel": {
+          "channel_id": "",
+          "channel_title": "",
+          "subscriber_count": null,
+          "channel_age_days": 0,
+          "channel_video_count": 0,
+          "channel_total_views": 0,
+          "avg_previous_views": 0,
+          "median_previous_views": 0,
+          "previous_video_count_used": 0
+        },
+        "video_input": {
+          "title": "",
+          "duration_seconds": 0,
+          "tag_count": 0,
+          "publish_datetime": "",
+          "publish_hour": 0,
+          "publish_day_of_week": 0,
+          "category_id": ""
+        },
+        "model": {
+          "name": "LinearRegression",
+          "version": "",
+          "trained_at": "",
+          "target": "views_gained_next_1_hour"
+        },
+        "warnings": []
+      },
+      "error": null,
+      "request_id": ""
+    }
+  },
+  "response_error": {
+    "example": {
+      "success": false,
+      "data": null,
+      "error": {
+        "code": "MODEL_NOT_READY",
+        "message": "Mô hình chưa được huấn luyện hoặc chưa có file mô hình.",
+        "details": null
+      },
+      "request_id": ""
+    }
+  },
+  "error_codes": [
+    "MODEL_NOT_READY",
+    "VALIDATION_ERROR",
+    "INVALID_CHANNEL",
+    "CHANNEL_NOT_FOUND",
+    "INSUFFICIENT_HISTORY",
+    "INVALID_INPUT",
+    "YOUTUBE_KEY_MISSING",
+    "YOUTUBE_QUOTA_EXCEEDED",
+    "YOUTUBE_API_ERROR",
+    "UNAUTHORIZED",
+    "INTEGRATION_KEY_NOT_CONFIGURED",
+    "INTERNAL_ERROR"
+  ]
+}

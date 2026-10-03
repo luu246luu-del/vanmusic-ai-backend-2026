@@ -1,0 +1,18 @@
+# Đổi tên thành render.yaml. Đặt các biến sync:false trong giao diện Render (không ghi giá trị thật ở đây).
+services:
+  - type: web
+    name: youtube-view-predictor
+    runtime: docker
+    plan: starter
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: REQUIRE_INTEGRATION_KEY
+        value: "true"
+      - key: VANMUSIC_ALLOWED_ORIGINS
+        value: https://vanmusic.web.app
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: VANMUSIC_INTEGRATION_KEY
+        sync: false

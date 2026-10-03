@@ -1,0 +1,93 @@
+<!-- VANMUSIC AI PREDICTOR START -->
+<section id="tab-predictor" class="page-section">
+    <div class="vm-predict-page">
+        <header class="vm-predict-header">
+            <h2 class="vm-predict-title"><i class="fas fa-chart-line"></i> AI Dự Báo</h2>
+            <p class="vm-predict-subtitle">Dự báo lượt xem một video YouTube có thể đạt sau 3 ngày (72 giờ) bằng mô hình Hồi quy tuyến tính.</p>
+        </header>
+
+        <div class="vm-predict-card vm-predict-form" id="vm-predict-form-card">
+            <div class="vm-predict-field">
+                <label class="vm-predict-label" for="vm-predict-channel">Channel ID hoặc URL kênh YouTube</label>
+                <input class="vm-predict-input" id="vm-predict-channel" type="text" autocomplete="off"
+                       placeholder="UClyA28-01x4z60eWQ2kiNbA hoặc https://www.youtube.com/@tenkenh">
+                <span class="vm-predict-error-text" id="vm-predict-err-channel"></span>
+            </div>
+
+            <div class="vm-predict-field">
+                <label class="vm-predict-label" for="vm-predict-title">Tiêu đề video dự kiến</label>
+                <input class="vm-predict-input" id="vm-predict-title" type="text" maxlength="300" placeholder="Nhập tiêu đề video">
+                <span class="vm-predict-error-text" id="vm-predict-err-title"></span>
+            </div>
+
+            <div class="vm-predict-field">
+                <label class="vm-predict-label" for="vm-predict-description">Mô tả</label>
+                <textarea class="vm-predict-input vm-predict-textarea" id="vm-predict-description" rows="3" maxlength="10000" placeholder="Mô tả video (không bắt buộc)"></textarea>
+            </div>
+
+            <div class="vm-predict-row">
+                <div class="vm-predict-field">
+                    <label class="vm-predict-label" for="vm-predict-minutes">Thời lượng (phút)</label>
+                    <input class="vm-predict-input" id="vm-predict-minutes" type="number" min="0" max="1440" value="4" inputmode="numeric">
+                </div>
+                <div class="vm-predict-field">
+                    <label class="vm-predict-label" for="vm-predict-seconds">Giây</label>
+                    <input class="vm-predict-input" id="vm-predict-seconds" type="number" min="0" max="59" value="20" inputmode="numeric">
+                </div>
+            </div>
+            <span class="vm-predict-error-text" id="vm-predict-err-duration"></span>
+
+            <div class="vm-predict-field">
+                <label class="vm-predict-label" for="vm-predict-tags">Tags (ngăn cách bằng dấu phẩy)</label>
+                <input class="vm-predict-input" id="vm-predict-tags" type="text" placeholder="music, mv, official">
+            </div>
+
+            <div class="vm-predict-row">
+                <div class="vm-predict-field">
+                    <label class="vm-predict-label" for="vm-predict-datetime">Ngày giờ dự kiến đăng</label>
+                    <input class="vm-predict-input" id="vm-predict-datetime" type="datetime-local">
+                    <span class="vm-predict-error-text" id="vm-predict-err-datetime"></span>
+                </div>
+                <div class="vm-predict-field">
+                    <label class="vm-predict-label" for="vm-predict-category">Danh mục</label>
+                    <select class="vm-predict-input" id="vm-predict-category">
+                        <option value="10" selected>Âm nhạc</option>
+                        <option value="24">Giải trí</option>
+                        <option value="22">Nhân vật &amp; Blog</option>
+                        <option value="1">Phim &amp; Hoạt hình</option>
+                        <option value="20">Trò chơi</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="vm-predict-checks">
+                <label class="vm-predict-check"><input type="checkbox" id="vm-predict-hd" checked> <span>Video HD</span></label>
+                <label class="vm-predict-check"><input type="checkbox" id="vm-predict-caption"> <span>Có phụ đề</span></label>
+            </div>
+
+            <button type="button" class="vm-predict-button" id="vm-predict-submit">DỰ BÁO SAU 3 NGÀY</button>
+        </div>
+
+        <div class="vm-predict-card vm-predict-loading" id="vm-predict-loading" hidden>
+            <div class="vm-predict-spinner"></div>
+            <p>Đang phân tích dữ liệu kênh...</p>
+        </div>
+
+        <div class="vm-predict-card vm-predict-error" id="vm-predict-error" hidden>
+            <p class="vm-predict-error-message" id="vm-predict-error-message"></p>
+            <button type="button" class="vm-predict-button vm-predict-button-secondary" id="vm-predict-retry">Thử lại</button>
+        </div>
+
+        <div class="vm-predict-card vm-predict-result" id="vm-predict-result" hidden>
+            <div class="vm-predict-result-label">Lượt xem dự kiến sau 3 ngày</div>
+            <div class="vm-predict-result-number" id="vm-predict-views"></div>
+            <div class="vm-predict-result-range" id="vm-predict-range"></div>
+            <dl class="vm-predict-details" id="vm-predict-details"></dl>
+            <ul class="vm-predict-warnings" id="vm-predict-warnings"></ul>
+            <button type="button" class="vm-predict-button vm-predict-button-secondary" id="vm-predict-reset">Dự báo video khác</button>
+        </div>
+
+        <p class="vm-predict-disclaimer">Kết quả được tạo bởi mô hình Hồi quy tuyến tính dựa trên dữ liệu lịch sử và chỉ mang tính tham khảo.</p>
+    </div>
+</section>
+<!-- VANMUSIC AI PREDICTOR END -->
