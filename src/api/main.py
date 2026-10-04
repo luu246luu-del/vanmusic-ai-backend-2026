@@ -1,6 +1,7 @@
 """FastAPI app factory. Chạy:  python run_api.py"""
 from __future__ import annotations
 
+import os
 import uuid
 
 from fastapi import FastAPI, Request
@@ -17,6 +18,33 @@ from src.ml.predictor import ViewPredictor
 from src.youtube.client import YouTubeClient
 
 log = get_logger(__name__)
+
+# Module Admin / Thống kê / Bình luận YouTube của VanMusic (cùng một backend, prefix /api/v1/vanmusic/*)
+try:
+    from vanmusic_admin import register_model_info_provider
+    from vanmusic_admin import router as vanmusic_admin_router
+except Exception as _e:  # không để lỗi module Admin làm sập API dự báo
+    vanmusic_admin_router = None
+    register_model_info_provider = None
+    log.error("Không nạp được module vanmusic_admin: %s", type(_e).__name__)
+
+
+def _model_info_for_admin(predictor: ViewPredictor):
+    """Chuyển thông tin mô hình AI thành dạng trang Admin cần (không cần VM_MODEL_INFO_URL)."""
+    def provider():
+        info = predictor.info()
+        if not info.get("model_loaded"):
+            return {"_error": True}
+        m = info.get("metrics") or {}
+        dp = info.get("data_period") or {}
+        n = None
+        if dp.get("n_train") is not None and dp.get("n_test") is not None:
+            n = int(dp["n_train"]) + int(dp["n_test"])
+        bc = (predictor.metadata or {}).get("baseline_comparison") or {}
+        return {"version": info.get("model_version") or info.get("model_name"), "trained_at": info.get("trained_at"),
+                "samples": n, "mae": m.get("mae"), "rmse": m.get("rmse"), "r2": m.get("r2"),
+                "beats_baseline": bc.get("beats_best_baseline_mae_and_rmse")}
+    return provider
 
 
 def create_app(settings: Settings | None = None, provider=None, predictor: ViewPredictor | None = None) -> FastAPI:
@@ -39,10 +67,13 @@ def create_app(settings: Settings | None = None, provider=None, predictor: ViewP
     app.state.predictor = predictor
     app.state.service = PredictionService(settings, predictor, provider)
 
-    # CORS: chỉ cho phép các origin trong VANMUSIC_ALLOWED_ORIGINS (KHÔNG dùng "*")
-    app.add_middleware(CORSMiddleware, allow_origins=[o for o in settings.cors_origins if o != "*"],
+    # CORS: chỉ cho phép các origin trong VANMUSIC_ALLOWED_ORIGINS (+ ALLOWED_ORIGINS cũ của module Admin), KHÔNG dùng "*"
+    origins = list(settings.cors_origins)
+    origins += [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+    origins = [o for i, o in enumerate(origins) if o != "*" and o not in origins[:i]]
+    app.add_middleware(CORSMiddleware, allow_origins=origins,
                        allow_methods=["GET", "POST", "OPTIONS"],
-                       allow_headers=["Content-Type", INTEGRATION_HEADER, "X-Request-ID"],
+                       allow_headers=["Content-Type", INTEGRATION_HEADER, "X-Request-ID", "Authorization"],
                        expose_headers=["X-Request-ID"], max_age=600)
 
     @app.middleware("http")
@@ -74,4 +105,7 @@ def create_app(settings: Settings | None = None, provider=None, predictor: ViewP
         return fail(_rid(request), code, "Không tìm thấy đường dẫn." if exc.status_code == 404 else str(exc.detail), exc.status_code)
 
     app.include_router(router)
+    if vanmusic_admin_router is not None:
+        register_model_info_provider(_model_info_for_admin(predictor))
+        app.include_router(vanmusic_admin_router)
     return app

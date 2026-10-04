@@ -11,8 +11,14 @@ services:
       - key: REQUIRE_INTEGRATION_KEY
         value: "true"
       - key: VANMUSIC_ALLOWED_ORIGINS
-        value: https://vanmusic.web.app
+        value: https://vanmusic.web.app,https://wedamnhac.web.app,https://wedamnhac.firebaseapp.com
       - key: YOUTUBE_API_KEY
         sync: false
       - key: VANMUSIC_INTEGRATION_KEY
+        sync: false
+      - key: VM_ADMIN_TOKEN_SECRET
+        sync: false
+      - key: VM_BOSS_PASSWORD
+        sync: false
+      - key: FIREBASE_CREDENTIALS_JSON
         sync: false

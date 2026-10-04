@@ -16,5 +16,6 @@ streamlit>=1.33.0
 matplotlib>=3.8.0
 seaborn>=0.13.0
 requests>=2.31.0
+firebase-admin>=6.5.0     # lưu thống kê Admin vào Firestore (không có thì tự dùng bộ nhớ tạm)
 httpx>=0.27.0             # TestClient của FastAPI cần httpx
 pytest>=8.0.0
